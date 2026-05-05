@@ -4,11 +4,11 @@
   "description": "Security/trust layer primitives: audit-log (L5 forensics) + caller-validator (L2 authz) + rate-limit (L4 DoS guard) + vault-loader (Notion secrets, ESM subpath). Bundle of 4 small libs extracted from db/ott/voice gateways.",
   "main": "index.ts",
   "exports": {
-    ".": "./index.js",
-    "./audit-log": "./audit-log/index.js",
-    "./caller-validator": "./caller-validator/index.js",
-    "./rate-limit": "./rate-limit/index.js",
-    "./vault-loader": "./vault-loader/index.js"
+    ".": "./index.ts",
+    "./audit-log": "./audit-log/index.ts",
+    "./caller-validator": "./caller-validator/index.ts",
+    "./rate-limit": "./rate-limit/index.ts",
+    "./vault-loader": "./vault-loader/index.ts"
   },
   "scripts": {
     "test": "node --test test/*.test.js"
