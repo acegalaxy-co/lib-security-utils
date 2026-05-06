@@ -1,7 +1,7 @@
 {
-  "name": "@acegalaxy-co/security-utils",
-  "version": "0.2.0",
-  "description": "Security/trust layer primitives: audit-log (L5 forensics) + caller-validator (L2 authz) + rate-limit (L4 DoS guard) + vault-loader (Notion secrets, ESM subpath). Bundle of 4 small libs extracted from db/ott/voice gateways.",
+  "name": "@acegalaxy/security-utils",
+  "version": "0.1.0",
+  "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit + vault-loader. Bundle of 4 small libs for production gateways.",
   "main": "index.ts",
   "exports": {
     ".": "./index.ts",
@@ -15,24 +15,28 @@
   },
   "keywords": [
     "security",
-    "audit",
     "rate-limit",
-    "caller",
+    "audit",
     "vault",
+    "notion",
     "secrets",
-    "ace-commons"
+    "caller-validator"
   ],
-  "author": "acegalaxy.co",
-  "license": "UNLICENSED",
+  "author": "ACE Galaxy <hello@acegalaxy.co>",
+  "license": "MIT",
   "private": false,
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs/issues"
+  },
+  "homepage": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs#readme"
 }
