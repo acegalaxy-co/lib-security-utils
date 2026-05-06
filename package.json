@@ -2,16 +2,34 @@
   "name": "@acegalaxy/security-utils",
   "version": "0.1.0",
   "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit + vault-loader. Bundle of 4 small libs for production gateways.",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "exports": {
-    ".": "./index.ts",
-    "./audit-log": "./audit-log/index.ts",
-    "./caller-validator": "./caller-validator/index.ts",
-    "./rate-limit": "./rate-limit/index.ts",
-    "./vault-loader": "./vault-loader/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./audit-log": {
+      "types": "./dist/audit-log/index.d.ts",
+      "default": "./dist/audit-log/index.js"
+    },
+    "./caller-validator": {
+      "types": "./dist/caller-validator/index.d.ts",
+      "default": "./dist/caller-validator/index.js"
+    },
+    "./rate-limit": {
+      "types": "./dist/rate-limit/index.d.ts",
+      "default": "./dist/rate-limit/index.js"
+    },
+    "./vault-loader": {
+      "types": "./dist/vault-loader/index.d.ts",
+      "default": "./dist/vault-loader/index.js"
+    }
   },
   "scripts": {
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "security",
@@ -38,5 +56,17 @@
   "bugs": {
     "url": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs/issues"
   },
-  "homepage": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs#readme"
+  "homepage": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs#readme",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^20.0.0"
+  }
 }
