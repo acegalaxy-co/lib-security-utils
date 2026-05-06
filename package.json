@@ -1,5 +1,5 @@
 {
-  "name": "@acegalaxy/security-utils",
+  "name": "@kanelr/security-utils",
   "version": "0.1.0",
   "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit + vault-loader. Bundle of 4 small libs for production gateways.",
   "main": "dist/index.js",

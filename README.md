@@ -1,7 +1,7 @@
-# @acegalaxy/security-utils
+# @kanelr/security-utils
 
-[![npm version](https://img.shields.io/npm/v/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@acegalaxy/security-utils)
-[![npm downloads](https://img.shields.io/npm/dm/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@acegalaxy/security-utils)
+[![npm version](https://img.shields.io/npm/v/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@kanelr/security-utils)
+[![npm downloads](https://img.shields.io/npm/dm/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@kanelr/security-utils)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/node/v/@acegalaxy%2Fsecurity-utils.svg)](https://nodejs.org)
 
@@ -13,7 +13,7 @@ Extracted from production gateways (`db-gateway`, `ott-gateway`, `voice-gateway`
 ## Install
 
 ```bash
-npm install @acegalaxy/security-utils
+npm install @kanelr/security-utils
 ```
 
 Requires Node.js >= 20.
@@ -22,17 +22,17 @@ Requires Node.js >= 20.
 
 | Subpath | Layer | Purpose |
 |---|---|---|
-| `@acegalaxy/security-utils/audit-log` | L5 forensics | Append-only JSONL logger. Never throws. |
-| `@acegalaxy/security-utils/caller-validator` | L2 authz | Enforce `{service, scope}` contract on resolved callers. |
-| `@acegalaxy/security-utils/rate-limit` | L4 DoS guard | Sliding-window limiter + TTL replay-guard. In-memory. |
-| `@acegalaxy/security-utils/vault-loader` | L1 secrets | Load secrets from a Notion DB into `process.env`. See [vault-loader/README.md](./vault-loader/README.md). |
+| `@kanelr/security-utils/audit-log` | L5 forensics | Append-only JSONL logger. Never throws. |
+| `@kanelr/security-utils/caller-validator` | L2 authz | Enforce `{service, scope}` contract on resolved callers. |
+| `@kanelr/security-utils/rate-limit` | L4 DoS guard | Sliding-window limiter + TTL replay-guard. In-memory. |
+| `@kanelr/security-utils/vault-loader` | L1 secrets | Load secrets from a Notion DB into `process.env`. See [vault-loader/README.md](./vault-loader/README.md). |
 
 ## Quick start
 
 ### audit-log
 
 ```js
-import { createAuditLogger } from "@acegalaxy/security-utils/audit-log";
+import { createAuditLogger } from "@kanelr/security-utils/audit-log";
 
 const audit = createAuditLogger({ file: "/var/log/app/audit.jsonl" });
 audit.log({ event: "login", actor: "user:42", ok: true });
@@ -41,7 +41,7 @@ audit.log({ event: "login", actor: "user:42", ok: true });
 ### caller-validator
 
 ```js
-import { createCallerValidator } from "@acegalaxy/security-utils/caller-validator";
+import { createCallerValidator } from "@kanelr/security-utils/caller-validator";
 
 const validate = createCallerValidator({
   allow: [{ service: "ott-gateway", scope: "send" }],
@@ -53,7 +53,7 @@ validate({ service: "rogue", scope: "send" });       // throws
 ### rate-limit
 
 ```js
-import { createSlidingWindow, createReplayGuard } from "@acegalaxy/security-utils/rate-limit";
+import { createSlidingWindow, createReplayGuard } from "@kanelr/security-utils/rate-limit";
 
 const limiter = createSlidingWindow({ windowMs: 60_000, max: 30 });
 if (!limiter.allow("ip:1.2.3.4")) throw new Error("429");
@@ -65,7 +65,7 @@ if (!replay.accept(nonce)) throw new Error("replay");
 ### vault-loader
 
 ```js
-import { loadVault } from "@acegalaxy/security-utils/vault-loader";
+import { loadVault } from "@kanelr/security-utils/vault-loader";
 
 await loadVault({ project: "nexus" }); // hydrates process.env from Notion DB
 ```

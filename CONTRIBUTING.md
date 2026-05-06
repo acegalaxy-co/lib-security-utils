@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in `@acegalaxy/security-utils`! Issues and PRs are welcome.
+Thanks for your interest in `@kanelr/security-utils`! Issues and PRs are welcome.
 
 ## Reporting issues
 

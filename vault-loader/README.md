@@ -1,10 +1,10 @@
-# @acegalaxy/vault-loader
+# @kanelr/vault-loader
 
 **Library only.** Load secrets from Notion vault databases into `process.env`.
 
 Supports multi-DB query, project/env filtering, alias expansion (backward compat for `FW_*` / `NEXUS_*` keys), and in-memory TTL cache.
 
-CLI tools live in [`tools/vault-sync/`](../../tools/vault-sync/) (separate package `@acegalaxy/vault-sync`) — sibling tool that depends on this library to provide `bin/sync-vault.mjs` (atomic file write) + `bin/load-vault.mjs` (stdout/json).
+CLI tools live in [`tools/vault-sync/`](../../tools/vault-sync/) (separate package `@kanelr/vault-sync`) — sibling tool that depends on this library to provide `bin/sync-vault.mjs` (atomic file write) + `bin/load-vault.mjs` (stdout/json).
 
 ## Setup
 
@@ -39,8 +39,8 @@ node bin/load-vault.mjs --project=framework --env=PROD --json
 ## Library usage
 
 ```js
-import { VaultLoader, buildDatabasesFromEnv } from '@acegalaxy/notion-vault-loader';
-import { parseEnvFile } from '@acegalaxy/notion-vault-loader/src/env-file.js';
+import { VaultLoader, buildDatabasesFromEnv } from '@kanelr/notion-vault-loader';
+import { parseEnvFile } from '@kanelr/notion-vault-loader/src/env-file.js';
 
 const envFile = parseEnvFile('/path/to/notion.env');
 const loader = new VaultLoader({

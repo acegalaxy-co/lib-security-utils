@@ -9,10 +9,10 @@
 //   - vault-loader      (Notion-backed secret loader with TTL cache)   [ESM]
 //
 // Each sub-module is reachable directly via subpath export:
-//   require("@acegalaxy/security-utils/audit-log")
-//   require("@acegalaxy/security-utils/caller-validator")
-//   require("@acegalaxy/security-utils/rate-limit")
-//   import { VaultLoader } from "@acegalaxy/security-utils/vault-loader"  // ESM only
+//   require("@kanelr/security-utils/audit-log")
+//   require("@kanelr/security-utils/caller-validator")
+//   require("@kanelr/security-utils/rate-limit")
+//   import { VaultLoader } from "@kanelr/security-utils/vault-loader"  // ESM only
 //
 // vault-loader is NOT re-exported from the root (this file) because it is ESM
 // and the root index is CJS. Consumers must use the ESM subpath import above.
