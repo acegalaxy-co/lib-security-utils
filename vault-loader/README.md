@@ -8,16 +8,17 @@ CLI tools live in [`tools/vault-sync/`](../../tools/vault-sync/) (separate packa
 
 ## Setup
 
-The vault DBs are managed in Notion under page `___VAULT-NO_SHARE`. Each DB ID + reader token is stored locally in `_vault_/tokens/notion.env`:
+Create one or more Notion databases to store your secrets (one DB per project / scope is recommended). Each DB ID + reader integration token is configured via env vars in your local vault config file (e.g. `.env-vault` — git-ignored, chmod 600):
 
 ```
-NOTION_VAULT_NEXUS_READER_TOKEN_LOCAL=ntn_...
-NOTION_VAULT_NEXUS_READER_TOKEN_PROD=ntn_...
-# Phase 4 (2026-04-27): per-project DBs only. Old category DBs (llm, google,
-# telegram, notion) merged into framework + nexus với prefixes (FW_*, NEXUS_*).
-NOTION_VAULT_FRAMEWORK_DB_ID=...
-NOTION_VAULT_NEXUS_DB_ID=...
-NOTION_VAULT_BOTS_WRITE_DB_ID=...
+# Reader tokens — one per project + per host (LOCAL/PROD)
+NOTION_VAULT_<PROJECT>_READER_TOKEN_LOCAL=<notion-token>
+NOTION_VAULT_<PROJECT>_READER_TOKEN_PROD=<notion-token>
+
+# DB IDs — one per scope (per-project recommended for least-privilege)
+NOTION_VAULT_<PROJECT>_DB_ID=<notion-db-id>
+NOTION_VAULT_SHARED_INFRA_DB_ID=<notion-db-id>
+NOTION_VAULT_BOTS_WRITE_DB_ID=<notion-db-id>
 NOTION_VAULT_SHARED_INFRA_DB_ID=...
 NOTION_VAULT_SHARED_CONFIG_DB_ID=...
 ```
@@ -94,4 +95,4 @@ Unit tests stub `NotionClient` so no API calls happen and no real values are exp
 
 - The CLI never prints secret values to stderr. `[info]` lines on stderr only show counts.
 - `--stats` is safe to log — it returns counts and category breakdowns, never values.
-- Tokens themselves come from `_vault_/tokens/notion.env` which is git-ignored and chmod 600.
+- Reader tokens come from your vault config file (e.g. `.env-vault`) which MUST be git-ignored and chmod 600.
