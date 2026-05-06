@@ -1,5 +1,11 @@
 # @acegalaxy/security-utils
 
+[![npm version](https://img.shields.io/npm/v/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@acegalaxy/security-utils)
+[![npm downloads](https://img.shields.io/npm/dm/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@acegalaxy/security-utils)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node](https://img.shields.io/node/v/@acegalaxy%2Fsecurity-utils.svg)](https://nodejs.org)
+
+
 > 4-in-1 security primitives for Node.js services — rate-limit, audit-log, caller-validator, vault-loader.
 
 Extracted from production gateways (`db-gateway`, `ott-gateway`, `voice-gateway`) at ACE Galaxy. Battle-tested, opinionated defaults, zero heavy deps.
