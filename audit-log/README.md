@@ -1,4 +1,4 @@
-# @kanelr/audit-log
+# @acegalaxy/audit-log
 
 Cross-project append-only JSONL audit logger. One JSON line per record. Errors are swallowed + logged to stderr — audit MUST NOT break the main flow.
 
@@ -11,7 +11,7 @@ Workspace `package.json`:
 ```json
 {
   "dependencies": {
-    "@kanelr/audit-log": "file:../../ace_commons/audit-log-nodejs"
+    "@acegalaxy/audit-log": "file:../../ace_commons/audit-log-nodejs"
   }
 }
 ```
@@ -20,7 +20,7 @@ Workspace `package.json`:
 
 ```js
 const path = require("path");
-const { createAuditLogger } = require("@kanelr/audit-log");
+const { createAuditLogger } = require("@acegalaxy/audit-log");
 
 const audit = createAuditLogger({
   logPath: path.join(__dirname, "audit.log"),
@@ -58,7 +58,7 @@ Each gateway's `audit/logger.js` becomes a thin wrapper:
 ```js
 // db-gateway/audit/logger.js
 const path = require("path");
-const { createAuditLogger } = require("@kanelr/audit-log");
+const { createAuditLogger } = require("@acegalaxy/audit-log");
 
 const logger = createAuditLogger({
   logPath: path.join(__dirname, "audit.log"),

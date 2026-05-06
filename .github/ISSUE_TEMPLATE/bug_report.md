@@ -27,7 +27,7 @@ What actually happened (include `outcome` / `denyReason` if relevant).
 
 ## Environment
 
-- `@kanelr/db-gateway` version:
+- `@acegalaxy/db-gateway` version:
 - Adapter (postgres / sqlite / notion):
 - Node.js version:
 - OS:

@@ -1,6 +1,6 @@
 {
-  "name": "@kanelr/security-utils",
-  "version": "0.1.0",
+  "name": "@acegalaxy/security-utils",
+  "version": "0.1.2",
   "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit + vault-loader. Bundle of 4 small libs for production gateways.",
   "main": "dist/index.js",
   "exports": {
@@ -27,7 +27,8 @@
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "test": "node --test test/*.test.js",

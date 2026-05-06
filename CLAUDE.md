@@ -1,4 +1,4 @@
-# @kanelr/security-utils
+# @acegalaxy/security-utils
 
 > **NPM commons library** — Security/trust layer primitives: audit-log (L5 forensics) + caller-validator (L2 authz) + rate-limit (L4 DoS guard) + vault-loader (Notion secrets). Bundle of 4 small libs extracted from db/ott/voice gateways.
 > Cross-cutting rules: see framework `../../rules/00-index.md`.

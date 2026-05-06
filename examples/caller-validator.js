@@ -1,11 +1,11 @@
-// caller-validator — minimal example for @kanelr/security-utils
+// caller-validator — minimal example for @acegalaxy/security-utils
 //
 // Setup:
 //   npm install
 //   npm run build
 //   node examples/caller-validator.js
 
-const { createCallerValidator } = require("@kanelr/security-utils/caller-validator");
+const { createCallerValidator } = require("@acegalaxy/security-utils/caller-validator");
 
 const v = createCallerValidator({ extraFields: ["userId"] });
 const caller = v.resolveCaller({
