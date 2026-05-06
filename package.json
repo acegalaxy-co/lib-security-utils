@@ -23,6 +23,10 @@
     "./vault-loader": {
       "types": "./dist/vault-loader/index.d.ts",
       "default": "./dist/vault-loader/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
     }
   },
   "scripts": {
