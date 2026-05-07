@@ -6,7 +6,9 @@
 [![Node](https://img.shields.io/node/v/@acegalaxy%2Fsecurity-utils.svg)](https://nodejs.org)
 
 
-> 4-in-1 security primitives for Node.js services — rate-limit, audit-log, caller-validator, vault-loader.
+> 3-in-1 security primitives for Node.js services — rate-limit, audit-log, caller-validator.
+>
+> _(vault-loader was extracted into a standalone package: [`@acegalaxy/notion-vault`](https://www.npmjs.com/package/@acegalaxy/notion-vault).)_
 
 Extracted from production gateways (`db-gateway`, `ott-gateway`, `voice-gateway`) at ACE Galaxy. Battle-tested, opinionated defaults, zero heavy deps.
 
@@ -25,7 +27,6 @@ Requires Node.js >= 20.
 | `@acegalaxy/security-utils/audit-log` | L5 forensics | Append-only JSONL logger. Never throws. |
 | `@acegalaxy/security-utils/caller-validator` | L2 authz | Enforce `{service, scope}` contract on resolved callers. |
 | `@acegalaxy/security-utils/rate-limit` | L4 DoS guard | Sliding-window limiter + TTL replay-guard. In-memory. |
-| `@acegalaxy/security-utils/vault-loader` | L1 secrets | Load secrets from a Notion DB into `process.env`. See [vault-loader/README.md](./vault-loader/README.md). |
 
 ## Quick start
 
@@ -62,19 +63,9 @@ const replay = createReplayGuard({ ttlMs: 5 * 60_000 });
 if (!replay.accept(nonce)) throw new Error("replay");
 ```
 
-### vault-loader
-
-```js
-import { loadVault } from "@acegalaxy/security-utils/vault-loader";
-
-await loadVault({ project: "nexus" }); // hydrates process.env from Notion DB
-```
-
-See [vault-loader/README.md](./vault-loader/README.md) for full details (env file fallback, caching, row schema).
-
 ## Why bundle?
 
-All 4 modules belong to the same domain (service-trust / secret hygiene) and tend to evolve together. Single repo = single PR = single review. Each subpath is independently importable for tree-shaking.
+All 3 modules belong to the same domain (service-trust) and tend to evolve together. Single repo = single PR = single review. Each subpath is independently importable for tree-shaking.
 
 ## Contributing
 

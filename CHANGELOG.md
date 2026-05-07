@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-07
+
+### Removed (BREAKING)
+- `vault-loader` subpath extracted into a standalone package: [`@acegalaxy/notion-vault`](https://www.npmjs.com/package/@acegalaxy/notion-vault).
+- `require("@acegalaxy/security-utils/vault-loader")` no longer works — migrate to `require("@acegalaxy/notion-vault")`.
+
+### Changed
+- Description / keywords updated to reflect 3-in-1 scope (audit-log + caller-validator + rate-limit).
+
 ## [0.1.0] - 2026-05-06
 
 ### Added

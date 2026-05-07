@@ -1,7 +1,7 @@
 {
   "name": "@acegalaxy/security-utils",
-  "version": "0.1.2",
-  "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit + vault-loader. Bundle of 4 small libs for production gateways.",
+  "version": "0.2.0",
+  "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit. Bundle of 3 small libs for production gateways. (vault-loader extracted to @acegalaxy/notion-vault.)",
   "main": "dist/index.js",
   "exports": {
     ".": {
@@ -20,10 +20,6 @@
       "types": "./dist/rate-limit/index.d.ts",
       "default": "./dist/rate-limit/index.js"
     },
-    "./vault-loader": {
-      "types": "./dist/vault-loader/index.d.ts",
-      "default": "./dist/vault-loader/index.js"
-    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"
@@ -41,10 +37,8 @@
     "security",
     "rate-limit",
     "audit",
-    "vault",
-    "notion",
-    "secrets",
-    "caller-validator"
+    "caller-validator",
+    "authz"
   ],
   "author": "ACE Galaxy <hello@acegalaxy.co>",
   "license": "MIT",
