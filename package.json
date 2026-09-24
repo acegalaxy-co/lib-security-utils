@@ -1,73 +1,30 @@
 {
-  "name": "@acegalaxy/security-utils",
-  "version": "0.2.0",
-  "description": "Security/trust layer primitives: audit-log + caller-validator + rate-limit. Bundle of 3 small libs for production gateways. (vault-loader extracted to @acegalaxy/notion-vault.)",
+  "name": "@acegalaxy/lib-security-utils",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Shared security primitives (audit logging, caller validation, sliding-window rate limiting, replay guard) consumed cross-project via git-dependency.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./audit-log": {
-      "types": "./dist/audit-log/index.d.ts",
-      "default": "./dist/audit-log/index.js"
-    },
-    "./caller-validator": {
-      "types": "./dist/caller-validator/index.d.ts",
-      "default": "./dist/caller-validator/index.js"
-    },
-    "./rate-limit": {
-      "types": "./dist/rate-limit/index.d.ts",
-      "default": "./dist/rate-limit/index.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js",
+    "./audit-log": "./dist/audit-log/index.js",
+    "./caller-validator": "./dist/caller-validator/index.js",
+    "./rate-limit": "./dist/rate-limit/index.js"
   },
-  "scripts": {
-    "test": "node --test test/*.test.js",
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "clean": "rm -rf dist",
-    "pretest": "npm run build"
-  },
-  "keywords": [
-    "security",
-    "rate-limit",
-    "audit",
-    "caller-validator",
-    "authz"
+  "files": [
+    "dist/"
   ],
-  "author": "ACE Galaxy <hello@acegalaxy.co>",
-  "license": "MIT",
-  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "test": "node --import tsx --test test/*.test.js"
+  },
   "engines": {
     "node": ">=20"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs.git"
-  },
-  "bugs": {
-    "url": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs/issues"
-  },
-  "homepage": "https://github.com/acegalaxy-co/ace_commons-security-utils-nodejs#readme",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE",
-    "CONTRIBUTING.md",
-    "SECURITY.md",
-    "CHANGELOG.md"
-  ],
   "devDependencies": {
     "typescript": "^5.7.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20",
+    "tsx": "^4"
   }
 }

@@ -1,76 +1,89 @@
-# @acegalaxy/security-utils
+# @acegalaxy/lib-security-utils
 
-[![npm version](https://img.shields.io/npm/v/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@acegalaxy/security-utils)
-[![npm downloads](https://img.shields.io/npm/dm/@acegalaxy%2Fsecurity-utils.svg)](https://www.npmjs.com/package/@acegalaxy/security-utils)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node](https://img.shields.io/node/v/@acegalaxy%2Fsecurity-utils.svg)](https://nodejs.org)
-
-
-> 3-in-1 security primitives for Node.js services — rate-limit, audit-log, caller-validator.
->
-> _(vault-loader was extracted into a standalone package: [`@acegalaxy/notion-vault`](https://www.npmjs.com/package/@acegalaxy/notion-vault).)_
-
-Extracted from production gateways (`db-gateway`, `ott-gateway`, `voice-gateway`) at ACE Galaxy. Battle-tested, opinionated defaults, zero heavy deps.
+Shared security primitives used across Nexus-family gateways: append-only audit
+logging, caller validation (default-deny), sliding-window rate limiting, and a
+TTL-based replay guard.
 
 ## Install
 
+```json
+"dependencies": {
+  "@acegalaxy/lib-security-utils": "github:acegalaxy-co/lib-security-utils#v0.3.0"
+}
+```
+
+For local development against a sibling checkout:
+
 ```bash
-npm install @acegalaxy/security-utils
+npm install --no-save ../lib-security-utils
 ```
 
-Requires Node.js >= 20.
+## API
 
-## Subpath exports
+### `.` (root) — re-exports all four factories
 
-| Subpath | Layer | Purpose |
-|---|---|---|
-| `@acegalaxy/security-utils/audit-log` | L5 forensics | Append-only JSONL logger. Never throws. |
-| `@acegalaxy/security-utils/caller-validator` | L2 authz | Enforce `{service, scope}` contract on resolved callers. |
-| `@acegalaxy/security-utils/rate-limit` | L4 DoS guard | Sliding-window limiter + TTL replay-guard. In-memory. |
-
-## Quick start
-
-### audit-log
-
-```js
-import { createAuditLogger } from "@acegalaxy/security-utils/audit-log";
-
-const audit = createAuditLogger({ file: "/var/log/app/audit.jsonl" });
-audit.log({ event: "login", actor: "user:42", ok: true });
+```ts
+import { createAuditLogger, createCallerValidator, createSlidingWindow, createReplayGuard } from "@acegalaxy/lib-security-utils";
 ```
 
-### caller-validator
+### `./audit-log`
 
-```js
-import { createCallerValidator } from "@acegalaxy/security-utils/caller-validator";
-
-const validate = createCallerValidator({
-  allow: [{ service: "ott-gateway", scope: "send" }],
-});
-validate({ service: "ott-gateway", scope: "send" }); // ok
-validate({ service: "rogue", scope: "send" });       // throws
+```ts
+createAuditLogger({ logPath: string, tag: string, mode?: "sync" | "async" }): {
+  record(rec: Record<string, unknown>): Promise<void>;
+  LOG_PATH: string;
+}
 ```
 
-### rate-limit
+Appends JSONL records to `logPath`. Write failures are swallowed and logged to
+stderr — audit logging must never break the main call flow.
 
-```js
-import { createSlidingWindow, createReplayGuard } from "@acegalaxy/security-utils/rate-limit";
+### `./caller-validator`
 
-const limiter = createSlidingWindow({ windowMs: 60_000, max: 30 });
-if (!limiter.allow("ip:1.2.3.4")) throw new Error("429");
-
-const replay = createReplayGuard({ ttlMs: 5 * 60_000 });
-if (!replay.accept(nonce)) throw new Error("replay");
+```ts
+createCallerValidator(opts?: { extraFields?: string[] }): {
+  resolveCaller(caller: unknown): Promise<{ service: string; scope: string; roles: string[] } | null>;
+}
 ```
 
-## Why bundle?
+Default-deny: missing/non-object caller, missing `service`, or missing `scope`
+resolves to `null`. Unknown fields are dropped unless whitelisted via
+`extraFields`.
 
-All 3 modules belong to the same domain (service-trust) and tend to evolve together. Single repo = single PR = single review. Each subpath is independently importable for tree-shaking.
+### `./rate-limit`
 
-## Contributing
+```ts
+createSlidingWindow(opts: {
+  windowMs: number;
+  maxRequests: number;
+  keyFn?: (...args: unknown[]) => string;
+  reasonOnDeny?: string;
+  extraChecks?: Array<(key: string, ...args: unknown[]) => Promise<{ ok: boolean; reason?: string }> | { ok: boolean; reason?: string }>;
+}): {
+  check(...args: unknown[]): Promise<{ ok: boolean; reason?: string }>;
+  reset(): void;
+  windowMs: number;
+  maxRequests: number;
+}
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). Security issues: please follow [SECURITY.md](./SECURITY.md).
+createReplayGuard(opts: { ttlMs: number }): {
+  seen(id: string): boolean; // true = duplicate within ttl (refreshes timestamp); false = first time
+  reset(): void;
+}
+```
 
-## License
+## Config
 
-MIT — see [LICENSE](./LICENSE).
+No environment variables — all behavior is configured via factory options at
+call sites (audit log path, rate-limit windows, TTLs are owned by the
+consuming gateway).
+
+## Changelog
+
+- **0.3.0** — renamed from `@acegalaxy/security-utils@0.2.0`, synced from
+  Nexus `commons/db-gateway/lib/{audit-log,caller-validator,rate-limit}`
+  (audit-log and rate-limit are byte-identical to
+  `commons/ott-gateway/lib/`). Behavior unchanged from the Nexus in-repo
+  version; packaged as a standalone private git-dependency.
+
+Xem [RESEARCH.md](./RESEARCH.md) cho nguồn research + hướng cải tiến.
