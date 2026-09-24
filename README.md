@@ -80,6 +80,8 @@ consuming gateway).
 
 ## Changelog
 
+See [CHANGELOG.md](./CHANGELOG.md) for full version history.
+
 - **0.3.0** — renamed from `@acegalaxy/security-utils@0.2.0`, synced from
   Nexus `commons/db-gateway/lib/{audit-log,caller-validator,rate-limit}`
   (audit-log and rate-limit are byte-identical to
