@@ -24,7 +24,7 @@ volume hay container đang chạy.
 ## Steps
 
 0. **Project guard — verify repo identity trước mọi thao tác SSH/cloud/git trên production.**
-   - Project slug kỳ vọng: `lib-security-utils`; remote identity kỳ vọng: `github.com/acegalaxy-co/lib-security-utils`
+   - Project slug kỳ vọng: `lib-security-utils`; remote identity kỳ vọng: `git.imba.co:790/acegalaxy_docs/ace_galaxy/ace_libs/lib-security-utils`
      (đã sanitize `host/owner/repo`, chữ thường; deploy host `<deploy-ssh-host>`, service `<service-name>`).
    - Tính repo-root slug từ `basename "$(git rev-parse --show-toplevel)"` (chữ thường,
      ký tự non-alnum → `-`) và yêu cầu khớp `lib-security-utils`.
@@ -41,9 +41,9 @@ volume hay container đang chạy.
    - Sanitize URL của remote chính về `host/owner/repo` chữ thường: hỗ trợ `git@host:org/repo.git`,
      `https://[userinfo@]host/org/repo.git`, và `ssh://[userinfo@]host/org/repo.git`; bỏ userinfo,
      dấu `/` đầu, và `.git` cuối.
-   - Yêu cầu remote-chính identity đã sanitize khớp CHÍNH XÁC `github.com/acegalaxy-co/lib-security-utils`. Nếu `github.com/acegalaxy-co/lib-security-utils`
+   - Yêu cầu remote-chính identity đã sanitize khớp CHÍNH XÁC `git.imba.co:790/acegalaxy_docs/ace_galaxy/ace_libs/lib-security-utils`. Nếu `git.imba.co:790/acegalaxy_docs/ace_galaxy/ace_libs/lib-security-utils`
      có dạng placeholder (`<...>`), remote chính không parse được, repo-root slug không khớp, hoặc remote identity
-     không khớp → STOP ngay; báo user command này thuộc về `lib-security-utils` / `github.com/acegalaxy-co/lib-security-utils`,
+     không khớp → STOP ngay; báo user command này thuộc về `lib-security-utils` / `git.imba.co:790/acegalaxy_docs/ace_galaxy/ace_libs/lib-security-utils`,
      repo/root/remote chính hiện tại là `<repo identity>` — không chạy cleanup. Không có override.
    - Nếu config nào dùng bởi command này vẫn còn dạng placeholder (`<...>`) — `<deploy-ssh-host>`, `<service-name>`, `<healthcheck-cmd>` — STOP;
      deploy config chưa đầy đủ (chạy lại install.sh với biến env HARNESS_DEPLOY_*).
