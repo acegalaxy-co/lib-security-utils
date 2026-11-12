@@ -1,6 +1,6 @@
 ---
 name: browser-uipreview
-description: Lái Playwright MCP profile prj_libsecurityutils_sv_uipreview (xem trước UI local — /ui-preview). MCP chỉ nạp trong subagent này, main session không tốn token tool defs/snapshot.
+description: Lái Playwright MCP profile prj_libsecurityutils_sv_uipreview (xem trước UI local — /browser-ui-preview). MCP chỉ nạp trong subagent này, main session không tốn token tool defs/snapshot.
 mcpServers:
   - pw_libsecurityutils_uipreview:
       type: stdio
